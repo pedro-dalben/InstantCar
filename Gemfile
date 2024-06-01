@@ -68,3 +68,11 @@ gem "foreman", "~> 0.88.1", :group => :development
 gem "dotenv-rails", "~> 3.1"
 
 gem "bootstrap", "~> 5.3"
+
+gem "devise", "~> 4.9"
+
+gem "devise-jwt", "~> 0.11.0"
+
+gem "rack-cors", "~> 2.0"
+
+gem "jsonapi-serializer", "~> 2.2"
