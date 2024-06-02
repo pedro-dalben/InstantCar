@@ -1,20 +1,18 @@
 module Api
   class VehiclesController < ApplicationController
     respond_to :json
+    before_action :authenticate_user!
     before_action :set_vehicle, only: %i[show update destroy]
 
-    # GET /vehicles
     def index
       @vehicles = Vehicle.all
       render json: @vehicles
     end
 
-    # GET /vehicles/:id
     def show
       render json: @vehicle
     end
 
-    # POST /vehicles
     def create
       @vehicle = Vehicle.new(vehicle_params)
       if @vehicle.save
@@ -24,7 +22,6 @@ module Api
       end
     end
 
-    # PATCH/PUT /vehicles/:id
     def update
       if @vehicle.update(vehicle_params)
         render json: @vehicle
@@ -33,7 +30,6 @@ module Api
       end
     end
 
-    # DELETE /vehicles/:id
     def destroy
       @vehicle.destroy
     end

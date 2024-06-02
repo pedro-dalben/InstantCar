@@ -1,37 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import VehicleList from '../pages/VehicleList.vue'
-import VehicleCreate from '../pages/VehicleCreate.vue'
-import VehicleEdit from '../pages/VehicleEdit.vue'
-import VehicleShow from '../pages/VehicleShow.vue'
+import Home from '../pages/Home.vue'
 import Login from '../pages/Login.vue'
 import Register from '../pages/Register.vue'
-import Home from '../pages/Home.vue'
+import VehicleIndex from '../pages/vehicle/index.vue'
+import VehicleEdit from '../pages/vehicle/edit.vue'
+import VehicleNew from '../pages/vehicle/new.vue'
+import VehicleShow from '../pages/vehicle/show.vue'
+import UserIndex from '../pages/user/index.vue'
+import UserEdit from '../pages/user/edit.vue'
+import UserNew from '../pages/user/new.vue'
+import UserShow from '../pages/user/show.vue'
 import auth from './middleware/auth'
 
 const routes = [
-  { path: '/', component: Home, meta: { middleware: auth } },
+  { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  {
-    path: '/vehicles',
-    component: VehicleList,
-    meta: { middleware: auth },
-  },
-  {
-    path: '/vehicles/new',
-    component: VehicleCreate,
-    meta: { middleware: auth },
-  },
+  { path: '/vehicles', component: VehicleIndex, meta: { middleware: auth } },
+  { path: '/vehicles/new', component: VehicleNew, meta: { middleware: auth } },
+  { path: '/vehicles/:id', component: VehicleShow, meta: { middleware: auth } },
   {
     path: '/vehicles/:id/edit',
     component: VehicleEdit,
     meta: { middleware: auth },
   },
-  {
-    path: '/vehicles/:id',
-    component: VehicleShow,
-    meta: { middleware: auth },
-  },
+  { path: '/users', component: UserIndex, meta: { middleware: auth } },
+  { path: '/users/new', component: UserNew, meta: { middleware: auth } },
+  { path: '/users/:id', component: UserShow, meta: { middleware: auth } },
+  { path: '/users/:id/edit', component: UserEdit, meta: { middleware: auth } },
 ]
 
 const router = createRouter({
@@ -39,17 +35,13 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
-  if (!to.meta.middleware) {
-    return next()
+router.beforeEach((to, from, next) => {
+  if (to.meta.middleware) {
+    const middleware = to.meta.middleware
+    middleware({ next, router })
+  } else {
+    next()
   }
-
-  const middleware = to.meta.middleware
-
-  return middleware({
-    next,
-    router,
-  })
 })
 
 export default router

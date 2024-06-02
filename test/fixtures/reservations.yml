@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  vehicle: one
+  user: one
+  start_date: 2024-06-01
+  end_date: 2024-06-01
+
+two:
+  vehicle: two
+  user: two
+  start_date: 2024-06-01
+  end_date: 2024-06-01

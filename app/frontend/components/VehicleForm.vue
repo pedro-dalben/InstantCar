@@ -1,31 +1,47 @@
 <template>
-  <div class="card p-3">
-    <div class="card-body">
-      <form @submit.prevent="handleSubmit">
-        <div class="form-group">
-          <label for="brand">Brand</label>
-          <input type="text" id="brand" v-model="vehicle.brand" class="form-control" required>
-        </div>
-        <div class="form-group mt-3">
-          <label for="category">Category</label>
-          <input type="text" id="category" v-model="vehicle.category" class="form-control" required>
-        </div>
-        <div class="form-group  mt-3">
-          <label for="model">Model</label>
-          <input type="text" id="model" v-model="vehicle.model" class="form-control" required>
-        </div>
-        <div class="form-group mt-3">
-          <label for="license_plate">License Plate</label>
-          <input type="text" id="license_plate" v-model="vehicle.license_plate" class="form-control" required>
-        </div>
-        <div class="form-group mt-3">
-          <label for="available">vailable for Rent</label>
-          <input type="checkbox" id="available" v-model="vehicle.available" class="form-control form-check-input" required>
-        </div>
-        <button type="submit" class="btn btn-primary mt-3">Save</button>
-      </form>
+  <form @submit.prevent="submitForm">
+    <div class="form-group">
+      <label for="brand">Brand</label>
+      <input
+        type="text"
+        v-model="form.brand"
+        class="form-control"
+        id="brand"
+        required
+      />
     </div>
-  </div>
+    <div class="form-group">
+      <label for="category">Category</label>
+      <input
+        type="text"
+        v-model="form.category"
+        class="form-control"
+        id="category"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="model">Model</label>
+      <input
+        type="text"
+        v-model="form.model"
+        class="form-control"
+        id="model"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="plate">Plate</label>
+      <input
+        type="text"
+        v-model="form.plate"
+        class="form-control"
+        id="plate"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </template>
 
 <script>
@@ -33,22 +49,23 @@ export default {
   props: {
     vehicle: {
       type: Object,
-      default: () => ({
-        brand: '',
-        category: '',
-        model: '',
-        license_plate: ''
-      })
+      default: () => ({}),
     },
-    onSubmit: {
-      type: Function,
-      required: true
+  },
+  data() {
+    return {
+      form: {
+        brand: this.vehicle.brand || '',
+        category: this.vehicle.category || '',
+        model: this.vehicle.model || '',
+        plate: this.vehicle.plate || '',
+      },
     }
   },
   methods: {
-    handleSubmit() {
-      this.onSubmit(this.vehicle)
-    }
-  }
+    submitForm() {
+      this.$emit('submit', this.form)
+    },
+  },
 }
 </script>

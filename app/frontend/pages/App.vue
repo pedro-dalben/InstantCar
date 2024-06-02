@@ -13,6 +13,10 @@
           <li class="nav-item" v-if="isLoggedIn">
             <router-link class="nav-link" to="/vehicles">Vehicles</router-link>
           </li>
+
+          <li class="nav-item" v-if="isLoggedIn">
+            <router-link class="nav-link" to="/users">Users</router-link>
+          </li>
         </ul>
         <ul class="navbar-nav">
           <li class="nav-item" v-if="!isLoggedIn">

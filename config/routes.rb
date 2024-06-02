@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   namespace :api do
-    resources :vehicles, defaults: { format: :json }
+    resources :vehicles, defaults: { format: :json } do
+      resources :reservations, defaults: { format: :json }
+    end
+    resources :users, defaults: { format: :json }
   end
 
   devise_for :users, defaults: { format: :json }, controllers: {
