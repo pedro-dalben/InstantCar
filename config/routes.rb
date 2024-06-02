@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api do
+    resources :vehicles, defaults: { format: :json }
+  end
+
   devise_for :users, defaults: { format: :json }, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -9,5 +13,5 @@ Rails.application.routes.draw do
   end
 
   root to: 'pages#index'
-  get '*path', to: 'pages#index', constraints: ->(request) { request.format.html? }
+  get '*path', to: 'pages#index', constraints: ->(request) { !request.xhr? && request.format.html? }
 end

@@ -1,58 +1,55 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../components/Home.vue';
-import About from '../components/About.vue';
-import VehicleForm from '../components/VehicleForm.vue';
-import Login from '../components/Login.vue';
-import Register from '../components/Register.vue';
-import auth from './middleware/auth';
+import { createRouter, createWebHistory } from 'vue-router'
+import VehicleList from '../pages/VehicleList.vue'
+import VehicleCreate from '../pages/VehicleCreate.vue'
+import VehicleEdit from '../pages/VehicleEdit.vue'
+import VehicleShow from '../pages/VehicleShow.vue'
+import Login from '../pages/Login.vue'
+import Register from '../pages/Register.vue'
+import Home from '../pages/Home.vue'
+import auth from './middleware/auth'
 
 const routes = [
+  { path: '/', component: Home, meta: { middleware: auth } },
+  { path: '/login', component: Login },
+  { path: '/register', component: Register },
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: { middleware: auth }
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: About,
-    meta: { middleware: auth }
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
+    path: '/vehicles',
+    component: VehicleList,
+    meta: { middleware: auth },
   },
   {
     path: '/vehicles/new',
-    name: 'VehicleForm',
-    component: VehicleForm,
-    meta: { middleware: auth }
-  }
-];
+    component: VehicleCreate,
+    meta: { middleware: auth },
+  },
+  {
+    path: '/vehicles/:id/edit',
+    component: VehicleEdit,
+    meta: { middleware: auth },
+  },
+  {
+    path: '/vehicles/:id',
+    component: VehicleShow,
+    meta: { middleware: auth },
+  },
+]
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-});
+  routes,
+})
 
 router.beforeEach(async (to, from, next) => {
   if (!to.meta.middleware) {
-    return next();
+    return next()
   }
 
-  const middleware = to.meta.middleware;
+  const middleware = to.meta.middleware
 
   return middleware({
     next,
-    router
-  });
-});
+    router,
+  })
+})
 
-export default router;
+export default router

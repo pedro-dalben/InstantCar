@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" v-if="isLoggedIn">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">InstantCar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,15 +10,18 @@
           <li class="nav-item">
             <router-link class="nav-link" to="/">Home</router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/about">About</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/vehicles/new">Create Vehicle</router-link>
+          <li class="nav-item" v-if="isLoggedIn">
+            <router-link class="nav-link" to="/vehicles">Vehicles</router-link>
           </li>
         </ul>
         <ul class="navbar-nav">
-          <li class="nav-item">
+          <li class="nav-item" v-if="!isLoggedIn">
+            <router-link class="nav-link" to="/login">Login</router-link>
+          </li>
+          <li class="nav-item" v-if="!isLoggedIn">
+            <router-link class="nav-link" to="/register">Register</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn">
             <button class="btn btn-link nav-link" @click="logout">Logout</button>
           </li>
         </ul>
@@ -29,12 +32,13 @@
 </template>
 
 <script>
+import { reactive, onMounted } from 'vue'
 import authService from '../services/auth'
 
 export default {
   data() {
     return {
-      isLoggedIn: false,
+      isLoggedIn: false
     }
   },
   methods: {
@@ -68,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
-  margin-top: 20px;
+.navbar {
+  margin-bottom: 20px;
 }
 </style>
