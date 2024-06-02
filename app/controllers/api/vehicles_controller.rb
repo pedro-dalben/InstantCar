@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class VehiclesController < ApplicationController
     respond_to :json
