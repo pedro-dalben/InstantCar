@@ -7,7 +7,11 @@ Rails.application.routes.draw do
         get 'options'
       end
     end
-    resources :reservations, defaults: { format: :json }
+    resources :reservations, defaults: { format: :json } do
+      collection do
+        get 'by_period'
+      end
+    end
     resources :users, defaults: { format: :json }
   end
 
