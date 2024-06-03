@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   scope :admins, -> { where(admin: true) }
 
+  has_many :reservations, dependent: :destroy
+
   validates :full_name, presence: true
   validates :cpf, presence: true, uniqueness: true
   validates :birth_date, presence: true

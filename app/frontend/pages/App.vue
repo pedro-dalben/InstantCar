@@ -2,7 +2,15 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">InstantCar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -13,9 +21,13 @@
           <li class="nav-item" v-if="isLoggedIn">
             <router-link class="nav-link" to="/vehicles">Vehicles</router-link>
           </li>
-
           <li class="nav-item" v-if="isLoggedIn">
             <router-link class="nav-link" to="/users">Users</router-link>
+          </li>
+          <li class="nav-item" v-if="isLoggedIn">
+            <router-link class="nav-link" to="/reservations"
+              >Reservation</router-link
+            >
           </li>
         </ul>
         <ul class="navbar-nav">
@@ -26,7 +38,9 @@
             <router-link class="nav-link" to="/register">Register</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn">
-            <button class="btn btn-link nav-link" @click="logout">Logout</button>
+            <button class="btn btn-link nav-link" @click="logout">
+              Logout
+            </button>
           </li>
         </ul>
       </div>
@@ -42,7 +56,7 @@ import authService from '../services/auth'
 export default {
   data() {
     return {
-      isLoggedIn: false
+      isLoggedIn: false,
     }
   },
   methods: {
@@ -62,7 +76,7 @@ export default {
       } catch (error) {
         console.error('Failed to logout', error)
       }
-    }
+    },
   },
   mounted() {
     this.checkAuthStatus()
@@ -70,8 +84,8 @@ export default {
   watch: {
     $route(to, from) {
       this.checkAuthStatus()
-    }
-  }
+    },
+  },
 }
 </script>
 

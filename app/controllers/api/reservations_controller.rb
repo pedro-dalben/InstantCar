@@ -1,23 +1,24 @@
-# frozen_string_literal: true
-
+# app/controllers/api/reservations_controller.rb
 module Api
   class ReservationsController < ApplicationController
+    respond_to :json
     before_action :authenticate_user!
-    before_action :set_reservation, only: %i[show edit update destroy]
+    before_action :set_reservation, only: %i[show update destroy]
 
     def index
       @reservations = Reservation.all
-      render json: @reservations
+      render json: ReservationSerializer.new(@reservations).serializable_hash.to_json
     end
 
     def show
-      render json: @reservation
+      render json: ReservationSerializer.new(@reservation).serializable_hash.to_json
     end
 
     def create
       @reservation = current_user.reservations.new(reservation_params)
       if @reservation.save
-        render json: @reservation, status: :created
+        @reservation.vehicle.update(available: false)
+        render json: ReservationSerializer.new(@reservation).serializable_hash.to_json, status: :created
       else
         render json: @reservation.errors, status: :unprocessable_entity
       end
@@ -25,13 +26,14 @@ module Api
 
     def update
       if @reservation.update(reservation_params)
-        render json: @reservation
+        render json: ReservationSerializer.new(@reservation).serializable_hash.to_json
       else
         render json: @reservation.errors, status: :unprocessable_entity
       end
     end
 
     def destroy
+      @reservation.vehicle.update(available: true)
       @reservation.destroy
       head :no_content
     end

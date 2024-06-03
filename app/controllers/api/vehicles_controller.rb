@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api
   class VehiclesController < ApplicationController
     respond_to :json
@@ -7,8 +5,7 @@ module Api
     before_action :set_vehicle, only: %i[show update destroy]
 
     def index
-      @vehicles = Vehicle.all
-      render json: @vehicles
+      render json: Vehicle.all
     end
 
     def show
@@ -36,6 +33,34 @@ module Api
       @vehicle.destroy
     end
 
+    def options
+      category = params[:category]
+      brand = params[:brand]
+      model = params[:model]
+      license_plate = params[:license_plate]
+
+      vehicles = Vehicle.where(available: true)
+      vehicles = vehicles.where(category:) if category.present?
+      vehicles = vehicles.where(brand:) if brand.present?
+      vehicles = vehicles.where(model:) if model.present?
+      vehicles = vehicles.where(license_plate:) if license_plate.present?
+
+      categories = vehicles.distinct.pluck(:category)
+      brands = vehicles.distinct.pluck(:brand)
+      models = vehicles.distinct.pluck(:model)
+      plates = vehicles.distinct.pluck(:license_plate)
+
+      render json: {
+        categories:,
+        brands:,
+        models:,
+        vehicles: vehicles.map do |vehicle|
+                    { id: vehicle.id, category: vehicle.category, brand: vehicle.brand, model: vehicle.model,
+                      license_plate: vehicle.license_plate }
+                  end
+      }
+    end
+
     private
 
     def set_vehicle
@@ -43,7 +68,7 @@ module Api
     end
 
     def vehicle_params
-      params.require(:vehicle).permit(:brand, :category, :model, :license_plate)
+      params.require(:vehicle).permit(:brand, :category, :model, :license_license_plate)
     end
   end
 end

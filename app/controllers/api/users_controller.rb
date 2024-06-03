@@ -7,7 +7,11 @@ module Api
     before_action :set_user, only: %i[show update destroy]
 
     def index
-      @users = User.all
+      @users = if params[:query]
+                 User.where('name LIKE ? OR cpf LIKE ?', "%#{params[:query]}%", "%#{params[:query]}%")
+               else
+                 User.all
+               end
       render json: @users
     end
 

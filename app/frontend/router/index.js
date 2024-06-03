@@ -10,6 +10,9 @@ import UserIndex from '../pages/user/index.vue'
 import UserEdit from '../pages/user/edit.vue'
 import UserNew from '../pages/user/new.vue'
 import UserShow from '../pages/user/show.vue'
+import ReservationIndex from '../pages/reservation/index.vue'
+import ReservationNew from '../pages/reservation/new.vue'
+import ReservationShow from '../pages/reservation/show.vue'
 import auth from './middleware/auth'
 
 const routes = [
@@ -28,6 +31,24 @@ const routes = [
   { path: '/users/new', component: UserNew, meta: { middleware: auth } },
   { path: '/users/:id', component: UserShow, meta: { middleware: auth } },
   { path: '/users/:id/edit', component: UserEdit, meta: { middleware: auth } },
+  {
+    path: '/reservations',
+    name: 'ReservationIndex',
+    component: ReservationIndex,
+    meta: { middleware: auth },
+  },
+  {
+    path: '/reservations/new',
+    name: 'ReservationNew',
+    component: ReservationNew,
+    meta: { middleware: auth },
+  },
+  {
+    path: '/reservations/:id',
+    name: 'ReservationShow',
+    component: ReservationShow,
+    meta: { middleware: auth },
+  },
 ]
 
 const router = createRouter({

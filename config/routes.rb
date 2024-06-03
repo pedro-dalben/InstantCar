@@ -3,8 +3,11 @@
 Rails.application.routes.draw do
   namespace :api do
     resources :vehicles, defaults: { format: :json } do
-      resources :reservations, defaults: { format: :json }
+      collection do
+        get 'options'
+      end
     end
+    resources :reservations, defaults: { format: :json }
     resources :users, defaults: { format: :json }
   end
 
