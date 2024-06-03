@@ -7,7 +7,9 @@
         <p class="card-text">
           <strong>Category:</strong> {{ vehicle.category }}
         </p>
-        <p class="card-text"><strong>Plate:</strong> {{ vehicle.license_plate }}</p>
+        <p class="card-text">
+          <strong>Plate:</strong> {{ vehicle.license_plate }}
+        </p>
         <router-link
           :to="`/vehicles/${vehicle.id}/edit`"
           class="btn btn-warning"

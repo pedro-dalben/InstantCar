@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
     <h1>Create User</h1>
-    <UserForm @submit="createUser"/>
+    <UserForm @submit="createUser" />
   </div>
 </template>
 

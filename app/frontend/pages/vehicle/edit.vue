@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
     <h1>Edit Vehicle</h1>
-    <VehicleForm :vehicle="vehicle" @submit="updateVehicle"/>
+    <VehicleForm :vehicle="vehicle" @submit="updateVehicle" />
   </div>
 </template>
 

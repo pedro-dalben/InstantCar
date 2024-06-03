@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
     <h1>Edit User</h1>
-    <UserForm :user="user" @submit="updateUser"/>
+    <UserForm :user="user" @submit="updateUser" />
   </div>
 </template>
 
