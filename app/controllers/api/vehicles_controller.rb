@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class VehiclesController < ApplicationController
     respond_to :json
@@ -48,7 +50,7 @@ module Api
       categories = vehicles.distinct.pluck(:category)
       brands = vehicles.distinct.pluck(:brand)
       models = vehicles.distinct.pluck(:model)
-      plates = vehicles.distinct.pluck(:license_plate)
+      vehicles.distinct.pluck(:license_plate)
 
       render json: {
         categories:,

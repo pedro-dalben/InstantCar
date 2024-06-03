@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/api/reservations_controller.rb
 module Api
   class ReservationsController < ApplicationController
