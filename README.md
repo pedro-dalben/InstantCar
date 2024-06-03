@@ -1,24 +1,21 @@
-# README
+# Projeto Instant Car
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+## Instruções para configurar e rodar o projeto localmente
 
-* Ruby version
+### Dependências principais
+- Docker (Caso queira utilizar o postgres)
+- asdf com plugins do Ruby e Nodejs
 
-* System dependencies
+### Caso não queira usar asdf
+- Ruby 3.1.2
+- Rails ~> 7.1.3
+- Bundler
+- Nodejs 20.5.1
+- Yarn
+- Postgres ~> 15
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. Configure o arquivo `.env.development`.
+2. Execute o setup do projeto pelo comando `./bin/setup`
+3. Instale as dependências do Node.js com o comando `yarn`.
+4. Rode o projeto `foreman start -f Procfile.dev`
